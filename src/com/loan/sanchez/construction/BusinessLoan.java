@@ -9,14 +9,14 @@ package com.loan.sanchez.construction;
  *
  * @author ektasharma
  */
-public class BusinessLoan extends Loan{
- 
+public class BusinessLoan extends Loan {
+
     public BusinessLoan() {
         super.setInterestRate(LoanConstants.PRIME_INTREST_RATE + 1);
     }
-    
+
     public BusinessLoan(int loanNumber, String customerLastName, double loanAmount, int loanTerm) {
-        super(loanNumber,customerLastName,loanAmount,loanTerm);
+        super(loanNumber, customerLastName, loanAmount, loanTerm);
         super.setInterestRate(LoanConstants.PRIME_INTREST_RATE + 1);
     }
 
@@ -25,5 +25,4 @@ public class BusinessLoan extends Loan{
         return super.toString();
     }
 
-    
 }

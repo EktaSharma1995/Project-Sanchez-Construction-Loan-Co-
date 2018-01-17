@@ -68,27 +68,29 @@ public abstract class Loan implements LoanConstants {
     public void setLoanTerm(int loanTerm) {
         this.loanTerm = loanTerm;
     }
-    
-    
+
     public double getLoanBalance() {
         return loanAmount + LOAN_FEE;
     }
-    
-    public void checkAllowedLoanAmount() {
-        if(loanAmount == LoanConstants.MAXIMUMLOANAMOUNT) {
-              System.out.print("Allowed");
-          } else {
-              System.out.print("Not Allowed");
-          }
-    }
-    
-    public void checkLoanTerm() {
-        if(loanTerm == MEDIUM_TERM_YEARS){
-            System.out.println("Loan term must be short-term");
-        } else if(loanTerm == VERY_LONG_TERM_YEARS) {
-            System.out.println("Loan term must be short-term");
+
+    public boolean checkLoanTerm(int loanTerm) {
+        if (loanTerm == LoanConstants.MEDIUM_TERM_YEARS
+                || loanTerm == LoanConstants.VERY_LONG_TERM_YEARS
+                || loanTerm == LoanConstants.SHORT_TERM_YEARS) {
+            return true;
         } else {
-            System.out.println("Loan term is short-term");
+            return false;
+
+        }
+    }
+
+    public boolean checkLoanAmount(double loanAmount) {
+        if (loanAmount <= LoanConstants.MAXIMUMLOANAMOUNT) {
+            System.out.print("This loan amount is allowed");
+            return true;
+        } else {
+            System.out.print("Not Allowed");
+            return false;
         }
     }
 
@@ -96,7 +98,6 @@ public abstract class Loan implements LoanConstants {
     public String toString() {
         return "Loan{" + "loanNumber=" + loanNumber + ", customerLastName=" + customerLastName + ", loanAmount=" + loanAmount + ", interestRate=" + interestRate + ", loanTerm=" + loanTerm + '}';
     }
-    
 
     @Override
     public boolean equals(Object obj) {
@@ -117,6 +118,6 @@ public abstract class Loan implements LoanConstants {
             return false;
         }
         return true;
-    }   
-    
+    }
+
 }

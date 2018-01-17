@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author ektasharma
  */
-public class LoanListManager {
+public class LoanListApp {
 
     private static LoanDB loandb = new LoanDB();
     private static Scanner keyBoard = new Scanner(System.in);
@@ -38,15 +38,9 @@ public class LoanListManager {
                 if (loanType.equalsIgnoreCase("Business")) {
                     Loan bLoan = new BusinessLoan();
                     createLoanObj(bLoan);
-                    System.out.println("Successfully created the Business Loan Object.");
-                    System.out.println("Details:");
-                    System.out.println(bLoan.toString());
                 } else {
                     Loan pLoan = new PersonalLoan();
                     createLoanObj(pLoan);
-                    System.out.println("Successfully created the Personal Loan Object.");
-                    System.out.println("Details.");
-                    System.out.println(pLoan.toString());
                 }
             } else if (choice == 2) {
                 returnAllReords();
@@ -74,11 +68,33 @@ public class LoanListManager {
         System.out.println("What is the loan amount?");
         double loanAmount = Double.parseDouble(keyBoard.nextLine());
 
-        loanArg.setLoanNumber(loanNumber);
-        loanArg.setCustomerLastName(customerLastName);
-        loanArg.setLoanAmount(loanAmount);
+        System.out.println("What is the loan term?");
+        int loanTerm = Integer.parseInt(keyBoard.nextLine());
 
-        loandb.createLoan(loanArg);
+        boolean isLoanTermValid = loanArg.checkLoanTerm(loanTerm);
+        boolean isLoanAmountAllowed = loanArg.checkLoanAmount(loanAmount);
+
+        if (!isLoanAmountAllowed) {
+            System.out.println("Sorry, you entered incorrect loan amount");
+        } else {
+
+            loanArg.setLoanNumber(loanNumber);
+            loanArg.setCustomerLastName(customerLastName);
+            loanArg.setLoanAmount(loanAmount);
+
+            if (isLoanTermValid) {
+                loanArg.setLoanTerm(loanTerm);
+            } else {
+                System.out.println("Sorry, you entered incorrect loan term, we will force 1 year short term");
+                loanArg.setLoanTerm(LoanConstants.SHORT_TERM_YEARS);
+            }
+
+            loandb.createLoan(loanArg);
+            System.out.println("Successfully created the Loan Object.");
+            System.out.println("Details:");
+            System.out.println(loanArg.toString());
+        }
+
     }
 
     public static void returnAllReords() {
@@ -88,9 +104,11 @@ public class LoanListManager {
         Loan[] loanArray = new Loan[100];
         loanArray = loandb.returnAllLoans();
 
-        for (int i = 0; i <= loanArray.length; i++) {
-               
-            System.out.println(loanArray[i]);
+        for (int i = 0; i < loanArray.length; i++) {
+            Loan loan = loanArray[i];
+            if (loan != null) {
+                System.out.println(loan);
+            }
         }
     }
 
@@ -115,7 +133,6 @@ public class LoanListManager {
     }
 
     public static void main(String[] args) {
-        Loan loanObj = new BusinessLoan();
         loanDBMenu();
     }
 }
