@@ -60,10 +60,14 @@ public class LoanDB implements ILoanDB {
 
             if (loanNumber == loan.getLoanNumber()) {
                 loanFound = loan;
+                System.out.println("Object Found!");
                 System.out.println(loanFound);
                 break;
+            } else {
+                System.out.println("No Object Found with this loan number");
             }
         }
+        
         return loanFound;
     }
 
@@ -75,11 +79,15 @@ public class LoanDB implements ILoanDB {
 
             if ((loanTmp.getCustomerLastName().equalsIgnoreCase(customerLastName)) && (loanTmp.getLoanAmount() == (loanAmount))) {
                 loanFound = loanTmp;
+                System.out.println("Object Found!");
                 System.out.println(loanFound);
                 break;
+            } else {
+                System.out.println("No Object Found");
+                
             }
-        }
-        return loanFound;
+        } return loanFound;
+        
     }
 
 }
