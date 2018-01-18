@@ -6,15 +6,27 @@
 package com.loan.sanchez.construction;
 
 /**
+ * Encapsulating Business Type Loan
  *
  * @author ektasharma
  */
 public class BusinessLoan extends Loan {
 
+    /**
+     * Default constructor. Also sets interest rate
+     */
     public BusinessLoan() {
         super.setInterestRate(LoanConstants.PRIME_INTREST_RATE + 1);
     }
 
+    /**
+     * Constructor accepting loan details
+     *
+     * @param loanNumber
+     * @param customerLastName
+     * @param loanAmount
+     * @param loanTerm
+     */
     public BusinessLoan(int loanNumber, String customerLastName, double loanAmount, int loanTerm) {
         super(loanNumber, customerLastName, loanAmount, loanTerm);
         super.setInterestRate(LoanConstants.PRIME_INTREST_RATE + 1);

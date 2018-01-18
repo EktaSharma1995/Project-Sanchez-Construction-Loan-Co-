@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author ektasharma
  */
-public class LoanListApp {
+public class LoanObjectManager {
 
     private static LoanDB loandb = new LoanDB();
     private static Scanner keyBoard = new Scanner(System.in);
@@ -24,10 +24,9 @@ public class LoanListApp {
         int choice = 0;
         do {
             System.out.println("***Loan Database Menu***");
-            System.out.println("1. Create a new object");
-            System.out.println("2. Return all the loan objects stored in the array");
-            System.out.println("3. Return a specific loan object from the array");
-            System.out.println("4. Find a loan object based upen the customer last name and loan amount");
+            System.out.println("1. Create and save a new loan object");
+            System.out.println("2. Display the details of all the loan objects stored in the array");
+            System.out.println("3. Find a loan object based upen the customer last name and loan amount");
             System.out.println("9. Exit");
             System.out.print("Enter your choice -> ");
             choice = Integer.parseInt(keyBoard.nextLine());
@@ -35,19 +34,16 @@ public class LoanListApp {
                 System.out.println("What type of loan? Business or Personal?");
                 String loanType = keyBoard.nextLine();
 
-                if (loanType.equalsIgnoreCase("Business")) {
-                    Loan bLoan = new BusinessLoan();
+                if (loanType.equalsIgnoreCase("Business")) {        //Check loanType - Business or Personal
+                    Loan bLoan = new BusinessLoan();                //If business then instantiate loan object using BusinessLoan class
                     createLoanObj(bLoan);
                 } else {
-                    Loan pLoan = new PersonalLoan();
+                    Loan pLoan = new PersonalLoan();                //If personal then instantiate loan object using PersonalLoan class
                     createLoanObj(pLoan);
                 }
             } else if (choice == 2) {
                 returnAllReords();
             } else if (choice == 3) {
-                Loan loan = new BusinessLoan();
-                findLoanByNumber();
-            } else if (choice == 4) {
                 findLoanByLastNameAndLoanAmt();
             } else if (choice != 9) {
                 System.err.println("Invalid choice!!!");
@@ -85,14 +81,14 @@ public class LoanListApp {
             if (isLoanTermValid) {
                 loanArg.setLoanTerm(loanTerm);
             } else {
-                System.out.println("Sorry, you entered incorrect loan term, we will force 1 year short term");
+                System.out.println("Sorry, you entered incorrect loan term, we will force 1 year short term");      //If loan term is other than the 3 mentioned in the LoanConstants,force it to one year loan term
                 loanArg.setLoanTerm(LoanConstants.SHORT_TERM_YEARS);
             }
 
-            loandb.createLoan(loanArg);
+            loandb.createLoan(loanArg);   //Create loan object
             System.out.println("Successfully created the Loan Object.");
             System.out.println("Details:");
-            System.out.println(loanArg.toString());
+            System.out.println(loanArg.toString());     //Call toString method.
         }
 
     }
@@ -101,13 +97,13 @@ public class LoanListApp {
 
         System.out.println("You want to return the array");
 
-        Loan[] loanArray = new Loan[100];
-        loanArray = loandb.returnAllLoans();
+        Loan[] loanArray = new Loan[100];           //loanArray is an array of type Loan. 
+        loanArray = loandb.returnAllLoans();        //loanArray is Storing all the objects which are returned by returnAllLoans() method. 
 
-        for (int i = 0; i < loanArray.length; i++) {
+        for (int i = 0; i < loanArray.length; i++) {        //For loop for printing objects stored in the array loanArray.
             Loan loan = loanArray[i];
             if (loan != null) {
-                System.out.println(loan);
+                System.out.println(loan);           //Printing loan object.
             }
         }
     }
@@ -120,19 +116,15 @@ public class LoanListApp {
         System.out.println("What is the loan amount?");
         double loanAmount = Double.parseDouble(keyBoard.nextLine());
 
-        loandb.findLoanByLastNameAndLoanAmt(customerLastName, loanAmount);
+        loandb.findLoanByLastNameAndLoanAmt(customerLastName, loanAmount);     //Calling findLoanByLastNameAndLoanAmt methos of class loanDB.
 
     }
 
-    public static void findLoanByNumber() {
-
-        System.out.println("What is the loan numnber?");
-        int loanNumber = Integer.parseInt(keyBoard.nextLine());
-
-        loandb.findLoanByNumber(loanNumber);
-    }
-
-    public static void main(String[] args) {
-        loanDBMenu();
-    }
+//    public static void findLoanByNumber() {
+//
+//        System.out.println("What is the loan numnber?");
+//        int loanNumber = Integer.parseInt(keyBoard.nextLine());
+//
+//        loandb.findLoanByNumber(loanNumber);
+//    }
 }

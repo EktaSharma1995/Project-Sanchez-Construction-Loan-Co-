@@ -6,6 +6,7 @@
 package com.loan.sanchez.construction;
 
 /**
+ * LoanDB class, implements ILoanDB
  *
  * @author ektasharma
  */
@@ -38,12 +39,15 @@ public class LoanDB implements ILoanDB {
     }
 
     @Override
+    /**
+     * Saving loan object
+     */
     public void createLoan(Loan loan) {
         loanArray[count++] = loan;
     }
 
     /**
-     * Return all loan database
+     * Return all loan objects stored in array.
      *
      * @return
      */
@@ -53,6 +57,9 @@ public class LoanDB implements ILoanDB {
     }
 
     @Override
+    /**
+     * Find loan object on the basis of loan number and return the status.
+     */
     public Loan findLoanByNumber(int loanNumber) {
         Loan loanFound = null;
         for (int index = 0; index < count; index++) {
@@ -60,18 +67,21 @@ public class LoanDB implements ILoanDB {
 
             if (loanNumber == loan.getLoanNumber()) {
                 loanFound = loan;
-                System.out.println("Object Found!");
                 System.out.println(loanFound);
                 break;
             } else {
                 System.out.println("No Object Found with this loan number");
             }
         }
-        
+
         return loanFound;
     }
 
     @Override
+    /**
+     * Find loan object on the basis of last name and loan amount and return the
+     * status.
+     */
     public Loan findLoanByLastNameAndLoanAmt(String customerLastName, double loanAmount) {
         Loan loanFound = null;
         for (int index = 0; index < count; index++) {
@@ -79,15 +89,15 @@ public class LoanDB implements ILoanDB {
 
             if ((loanTmp.getCustomerLastName().equalsIgnoreCase(customerLastName)) && (loanTmp.getLoanAmount() == (loanAmount))) {
                 loanFound = loanTmp;
-                System.out.println("Object Found!");
                 System.out.println(loanFound);
                 break;
             } else {
                 System.out.println("No Object Found");
-                
+
             }
-        } return loanFound;
-        
+        }
+        return loanFound;
+
     }
 
 }

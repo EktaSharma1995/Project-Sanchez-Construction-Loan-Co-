@@ -9,9 +9,16 @@ package com.loan.sanchez.construction;
  *
  * @author ektasharma
  */
-public interface ILoanDB {
+public interface ILoanDB {      
+    /**
+     * creates Loan and adds to the DB. 
+     * @param loan
+     */
     public void createLoan(Loan loan);
+
     public Loan[] returnAllLoans();
-    public Loan findLoanByNumber (int loanNumber);
+
+    public Loan findLoanByNumber(int loanNumber);
+
     public Loan findLoanByLastNameAndLoanAmt(String customerLastName, double loanAmount);
 }

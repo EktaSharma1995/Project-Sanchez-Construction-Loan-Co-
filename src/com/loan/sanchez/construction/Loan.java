@@ -8,6 +8,7 @@ package com.loan.sanchez.construction;
 import java.util.Objects;
 
 /**
+ * Abstract class which implements LoanConstants interface.
  *
  * @author ektasharma
  */
@@ -22,17 +23,33 @@ public abstract class Loan implements LoanConstants {
     public Loan() {
     }
 
-    public Loan(int loanNumber, String customerLastName, double loanAmount, int loanTerm) {
+    /**
+     *
+     * @param loanNumber
+     * @param customerLastName
+     * @param loanAmount
+     * @param loanTerm
+     */
+    public Loan(int loanNumber, String customerLastName, double loanAmount, int loanTerm) {     //Parameterized constructor of class Loan
         this.customerLastName = customerLastName;
         this.loanAmount = loanAmount;
         this.loanNumber = loanNumber;
         this.loanTerm = loanTerm;
     }
 
+    /**
+     *
+     * @Accessor method
+     */
     public int getLoanNumber() {
         return loanNumber;
     }
 
+    /**
+     * Mutator method
+     *
+     * @param loanNumber
+     */
     public void setLoanNumber(int loanNumber) {
         this.loanNumber = loanNumber;
     }
@@ -69,10 +86,21 @@ public abstract class Loan implements LoanConstants {
         this.loanTerm = loanTerm;
     }
 
+    /**
+     *
+     * @return loan balance
+     */
     public double getLoanBalance() {
-        return loanAmount + LOAN_FEE;
+        double loanBalance = loanAmount + LOAN_FEE;
+        System.out.println(loanBalance);
+        return loanBalance;
     }
 
+    /**
+     *
+     * @param loanTerm
+     * @return status of loan term as true/ false
+     */
     public boolean checkLoanTerm(int loanTerm) {
         if (loanTerm == LoanConstants.MEDIUM_TERM_YEARS
                 || loanTerm == LoanConstants.VERY_LONG_TERM_YEARS
@@ -84,12 +112,15 @@ public abstract class Loan implements LoanConstants {
         }
     }
 
+    /**
+     *
+     * @param loanAmount
+     * @return status of loan amount as true/false
+     */
     public boolean checkLoanAmount(double loanAmount) {
         if (loanAmount <= LoanConstants.MAXIMUMLOANAMOUNT) {
-            System.out.print("This loan amount is allowed");
             return true;
         } else {
-            System.out.print("Not Allowed");
             return false;
         }
     }
@@ -100,6 +131,10 @@ public abstract class Loan implements LoanConstants {
     }
 
     @Override
+    /**
+     * equals method comparing 2 loan objects on the basis of their last name
+     * and loan amount.
+     */
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

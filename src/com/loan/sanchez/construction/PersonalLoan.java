@@ -6,15 +6,16 @@
 package com.loan.sanchez.construction;
 
 /**
- *
+ * Encapsulating Personal Type Loan 
  * @author ektasharma
  */
 public class PersonalLoan extends Loan{
     
-    
-    
+    /**
+     * Default constructor. Also sets interest rate
+     */
     public PersonalLoan() {
-       super.setInterestRate(LoanConstants.PRIME_INTREST_RATE + 2);
+       super.setInterestRate(LoanConstants.PRIME_INTREST_RATE + 2);    
     }
     
     public PersonalLoan(int loanNumber, String customerLastName, double loanAmount, int loanTerm) {
