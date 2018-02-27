@@ -42,7 +42,7 @@ public class LoanObjectManager {
                     createLoanObj(pLoan);
                 }
             } else if (choice == 2) {
-                returnAllReords();
+                returnAllLoanObj();
             } else if (choice == 3) {
                 findLoanByLastNameAndLoanAmt();
             } else if (choice != 9) {
@@ -55,7 +55,7 @@ public class LoanObjectManager {
 
     public static void createLoanObj(Loan loanArg) {
 
-        System.out.println("What is the loan numnber?");
+        System.out.println("What is the loan number?");
         int loanNumber = Integer.parseInt(keyBoard.nextLine());
 
         System.out.println("What is your last name?");
@@ -81,11 +81,11 @@ public class LoanObjectManager {
             if (isLoanTermValid) {
                 loanArg.setLoanTerm(loanTerm);
             } else {
-                System.out.println("Sorry, you entered incorrect loan term, we will force 1 year short term");      //If loan term is other than the 3 mentioned in the LoanConstants,force it to one year loan term
+                System.out.println("Sorry, you entered incorrect loan term, we will force 1 year short term");      //If loan term is other than the 3 mentioned in the LoanConstants interface,force it to one year loan term
                 loanArg.setLoanTerm(LoanConstants.SHORT_TERM_YEARS);
             }
 
-            loandb.createLoan(loanArg);   //Create loan object
+            loandb.createLoan(loanArg);   
             System.out.println("Successfully created the Loan Object.");
             System.out.println("Details:");
             System.out.println(loanArg.toString());     //Call toString method.
@@ -93,9 +93,9 @@ public class LoanObjectManager {
 
     }
 
-    public static void returnAllReords() {
+    public static void returnAllLoanObj() {
 
-        System.out.println("You want to return the array");
+        System.out.println("You want to return all objects in the array");
 
         Loan[] loanArray = new Loan[100];           //loanArray is an array of type Loan. 
         loanArray = loandb.returnAllLoans();        //loanArray is Storing all the objects which are returned by returnAllLoans() method. 
